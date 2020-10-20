@@ -66,43 +66,34 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
       body: Center(
         child: getPage(selectedIndex),
       ),
+      backgroundColor: Colors.grey[200],
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
               icon: Icon(Icons.home),
               title: Text(
                 'Home',
-                style: Theme.of(context)
-                    .bottomNavigationBarTheme
-                    .selectedLabelStyle,
               )),
           BottomNavigationBarItem(
               icon: Icon(Icons.add_a_photo),
               title: Text(
                 'Gallery',
-                style: Theme.of(context)
-                    .bottomNavigationBarTheme
-                    .selectedLabelStyle,
               )),
           BottomNavigationBarItem(
               icon: Icon(Icons.notifications_active),
               title: Text(
                 'Notifications',
-                style: Theme.of(context)
-                    .bottomNavigationBarTheme
-                    .selectedLabelStyle,
               )),
           BottomNavigationBarItem(
               icon: Icon(Icons.menu),
               title: Text(
                 'Menu',
-                style: Theme.of(context)
-                    .bottomNavigationBarTheme
-                    .selectedLabelStyle,
               )),
         ],
         currentIndex: selectedIndex,
         onTap: onItemTapped,
+        selectedItemColor: Colors.blue[600],
+        unselectedItemColor: Colors.grey[500],
       ),
     );
   }

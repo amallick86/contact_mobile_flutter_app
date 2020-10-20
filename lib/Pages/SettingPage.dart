@@ -1,10 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:provider/provider.dart';
-import 'package:seva_mobileapp/module/theme.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:responsive_flutter/responsive_flutter.dart';
 import 'package:seva_mobileapp/services/authentication.dart';
-
 import 'BirthdayListPage.dart';
 import 'CalendarScreen.dart';
 import 'InactiveContact.dart';
@@ -43,13 +42,25 @@ class _SettingPageState extends State<SettingPage> {
     }
   }
 
+  final Shader linearGradient = LinearGradient(
+    colors: <Color>[Color(0xff8E24AA), Color(0xffFB8C00)],
+  ).createShader(Rect.fromLTWH(0.0, 0.0, 300.0, 70.0));
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Center(child: Text("Menu")),
           toolbarHeight: 50,
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.blue[600], Colors.red[600]],
+                stops: [0.0, 1.0],
+              ),
+            ),
+          ),
         ),
+        backgroundColor: Colors.grey[200],
         body: Container(
           child: StreamBuilder(
             stream: Firestore.instance
@@ -70,15 +81,19 @@ class _SettingPageState extends State<SettingPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Padding(
-                          padding: const EdgeInsets.only(top: 3),
+                          padding: const EdgeInsets.only(top: 10),
                           child: Container(
-                            width: 130,
-                            height: 150,
+                            width: 130.0,
+                            height: 130.0,
                             decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                  colors: [Colors.green, Colors.blue]),
                               borderRadius: BorderRadius.circular(40.0),
+                              border: Border.all(
+                                  width: 2.0, color: Colors.grey[200]),
                               image: DecorationImage(
                                 image: NetworkImage(userDocument["photoURL"]),
-                                fit: BoxFit.cover,
+                                fit: BoxFit.fill,
                               ),
                               boxShadow: [
                                 BoxShadow(
@@ -94,14 +109,17 @@ class _SettingPageState extends State<SettingPage> {
                           padding: const EdgeInsets.only(top: 5),
                           child: Text(
                             userDocument["fullName"],
-                            style: Theme.of(context).textTheme.bodyText1,
+                            style: GoogleFonts.lobster(
+                                fontSize: 30,
+                                fontWeight: FontWeight.w700,
+                                foreground: Paint()..shader = linearGradient),
                             textAlign: TextAlign.left,
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 5.0),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Padding(
                                 padding:
@@ -116,31 +134,43 @@ class _SettingPageState extends State<SettingPage> {
                                               InactiveContact()),
                                     );
                                   },
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.440,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.15,
-                                    child: Center(
-                                        child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.people,
-                                          size: 40.0,
-                                        ),
-                                        Text(
-                                          "Inactive User",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText2,
-                                        )
-                                      ],
-                                    )),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20.0),
-                                      color: Theme.of(context).cardColor,
+                                  child: Card(
+                                    elevation: 5,
+                                    color: Colors.purple[600],
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(25),
+                                            topRight: Radius.circular(100),
+                                            bottomLeft: Radius.circular(100),
+                                            bottomRight: Radius.circular(100))),
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.380,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.15,
+                                      child: Center(
+                                          child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.people,
+                                            size: 40.0,
+                                            color: Colors.white,
+                                          ),
+                                          Text(
+                                            "Inactive User",
+                                            style: GoogleFonts.lobsterTwo(
+                                              fontSize:
+                                                  ResponsiveFlutter.of(context)
+                                                      .fontSize(2.2),
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          )
+                                        ],
+                                      )),
                                     ),
                                   ),
                                 ),
@@ -159,31 +189,43 @@ class _SettingPageState extends State<SettingPage> {
                                               )),
                                     );
                                   },
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.440,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.15,
-                                    child: Center(
-                                        child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.person,
-                                          size: 40.0,
-                                        ),
-                                        Text(
-                                          "View Profile",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText2,
-                                        )
-                                      ],
-                                    )),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20.0),
-                                      color: Theme.of(context).cardColor,
+                                  child: Card(
+                                    elevation: 5,
+                                    color: Colors.orange[600],
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(100),
+                                            topRight: Radius.circular(25),
+                                            bottomLeft: Radius.circular(100),
+                                            bottomRight: Radius.circular(100))),
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.380,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.15,
+                                      child: Center(
+                                          child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.person,
+                                            size: 40.0,
+                                            color: Colors.white,
+                                          ),
+                                          Text(
+                                            "View Profile",
+                                            style: GoogleFonts.lobsterTwo(
+                                              fontSize:
+                                                  ResponsiveFlutter.of(context)
+                                                      .fontSize(2.2),
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          )
+                                        ],
+                                      )),
                                     ),
                                   ),
                                 ),
@@ -209,31 +251,43 @@ class _SettingPageState extends State<SettingPage> {
                                               BirthdayListPage()),
                                     );
                                   },
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.440,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.15,
-                                    child: Center(
-                                        child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.cake,
-                                          size: 40.0,
-                                        ),
-                                        Text(
-                                          "BirthDay List ",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText2,
-                                        )
-                                      ],
-                                    )),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20.0),
-                                      color: Theme.of(context).cardColor,
+                                  child: Card(
+                                    elevation: 5,
+                                    color: Colors.blue[600],
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(100),
+                                            topRight: Radius.circular(25),
+                                            bottomLeft: Radius.circular(100),
+                                            bottomRight: Radius.circular(25))),
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.380,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.15,
+                                      child: Center(
+                                          child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.cake,
+                                            size: 40.0,
+                                            color: Colors.white,
+                                          ),
+                                          Text(
+                                            "BirthDay List ",
+                                            style: GoogleFonts.lobsterTwo(
+                                              fontSize:
+                                                  ResponsiveFlutter.of(context)
+                                                      .fontSize(2.2),
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          )
+                                        ],
+                                      )),
                                     ),
                                   ),
                                 ),
@@ -251,31 +305,47 @@ class _SettingPageState extends State<SettingPage> {
                                               CalendarScreen()),
                                     );
                                   },
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.440,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.15,
-                                    child: Center(
-                                        child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.calendar_today,
-                                          size: 40.0,
-                                        ),
-                                        Text(
-                                          "Calendaer",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText2,
-                                        )
-                                      ],
-                                    )),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20.0),
-                                      color: Theme.of(context).cardColor,
+                                  child: Card(
+                                    elevation: 5,
+                                    color: Colors.red[300],
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(25),
+                                            topRight: Radius.circular(100),
+                                            bottomLeft: Radius.circular(25),
+                                            bottomRight: Radius.circular(100))),
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.380,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.15,
+                                      child: Center(
+                                          child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.calendar_today,
+                                            size: 40.0,
+                                            color: Colors.white,
+                                          ),
+                                          Text(
+                                            "Calendaer",
+                                            style: GoogleFonts.lobsterTwo(
+                                              fontSize:
+                                                  ResponsiveFlutter.of(context)
+                                                      .fontSize(2.2),
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          )
+                                        ],
+                                      )),
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(20.0),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -286,42 +356,47 @@ class _SettingPageState extends State<SettingPage> {
                         Padding(
                           padding: const EdgeInsets.only(top: 10.0),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Padding(
                                 padding:
                                     EdgeInsets.only(left: 10.0, right: 10.0),
-                                child: Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.440,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.15,
-                                  child: Center(
-                                      child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Consumer<ThemeNotifier>(
-                                        builder: (context, notifier, child) =>
-                                            Switch(
-                                          activeColor:
-                                              Theme.of(context).buttonColor,
-                                          onChanged: (val) {
-                                            notifier.toggleTheme();
-                                          },
-                                          value: notifier.darkTheme,
+                                child: Card(
+                                  elevation: 5,
+                                  color: Colors.grey[300],
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(25),
+                                          bottomRight: Radius.circular(100),
+                                          topLeft: Radius.circular(100),
+                                          topRight: Radius.circular(100))),
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.380,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.15,
+                                    child: Center(
+                                        child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.not_interested,
+                                          size: 40.0,
+                                          color: Colors.grey[500],
                                         ),
-                                      ),
-                                      Text(
-                                        "Dark Mood",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText2,
-                                      )
-                                    ],
-                                  )),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20.0),
-                                    color: Theme.of(context).cardColor,
+                                        Text(
+                                          "Disable",
+                                          style: GoogleFonts.lobsterTwo(
+                                            fontSize:
+                                                ResponsiveFlutter.of(context)
+                                                    .fontSize(2.2),
+                                            color: Colors.grey[500],
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        )
+                                      ],
+                                    )),
                                   ),
                                 ),
                               ),
@@ -333,31 +408,43 @@ class _SettingPageState extends State<SettingPage> {
                                   onTap: () {
                                     signOut();
                                   },
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.440,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.15,
-                                    child: Center(
-                                        child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.exit_to_app,
-                                          size: 40.0,
-                                        ),
-                                        Text(
-                                          "SignOut",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText2,
-                                        )
-                                      ],
-                                    )),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20.0),
-                                      color: Theme.of(context).cardColor,
+                                  child: Card(
+                                    elevation: 5,
+                                    color: Colors.lightBlue[600],
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.only(
+                                            bottomLeft: Radius.circular(100),
+                                            bottomRight: Radius.circular(25),
+                                            topLeft: Radius.circular(100),
+                                            topRight: Radius.circular(100))),
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.380,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.15,
+                                      child: Center(
+                                          child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.exit_to_app,
+                                            size: 40.0,
+                                            color: Colors.white,
+                                          ),
+                                          Text(
+                                            "SignOut",
+                                            style: GoogleFonts.lobsterTwo(
+                                              fontSize:
+                                                  ResponsiveFlutter.of(context)
+                                                      .fontSize(2.2),
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          )
+                                        ],
+                                      )),
                                     ),
                                   ),
                                 ),

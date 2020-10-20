@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'ContactDetails.dart';
 
@@ -50,7 +51,17 @@ class _BirthdayListPageState extends State<BirthdayListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Center(child: Text("Birthday List"))),
+      appBar: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.blue[600], Colors.red[600]],
+                stops: [0.0, 1.0],
+              ),
+            ),
+          ),
+          title: Center(child: Text("Birthday List"))),
+      backgroundColor: Colors.grey[200],
       body: Container(
           child: FutureBuilder(
               future: _data,
@@ -73,14 +84,18 @@ class _BirthdayListPageState extends State<BirthdayListPage> {
                           leading: CircleAvatar(
                             backgroundImage: NetworkImage(_photo),
                           ),
-                          title: Text(snapshot.data[index].data["fullName"]),
+                          title: Text(
+                            snapshot.data[index].data["fullName"],
+                            style: GoogleFonts.crimsonText(fontSize: 22),
+                          ),
                           subtitle: Text(
                             snapshot.data[index].data["DOB_D"].toString() +
                                 ' / ' +
                                 snapshot.data[index].data["DOB_M"].toString() +
                                 ' / ' +
                                 snapshot.data[index].data["DOB_Y"].toString(),
-                            style: TextStyle(color: Colors.red[300]),
+                            style: GoogleFonts.crimsonText(
+                                fontSize: 17, color: Colors.red[300]),
                           ),
                         );
                       });

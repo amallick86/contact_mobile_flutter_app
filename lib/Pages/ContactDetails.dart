@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:responsive_flutter/responsive_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ContactDetails extends StatefulWidget {
   ContactDetails({
@@ -40,8 +40,17 @@ class _ContactDetailsState extends State<ContactDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.blue[600], Colors.red[600]],
+              stops: [0.0, 1.0],
+            ),
+          ),
+        ),
         title: Center(child: Text(widget.post.data["fullName"])),
       ),
+      backgroundColor: Colors.grey[200],
       body: SafeArea(
         child: Container(
           width: MediaQuery.of(context).size.width,
@@ -52,8 +61,8 @@ class _ContactDetailsState extends State<ContactDetails> {
                 Padding(
                   padding: const EdgeInsets.only(top: 10),
                   child: Container(
-                    width: MediaQuery.of(context).size.width * 0.30,
-                    height: MediaQuery.of(context).size.height * 0.20,
+                    width: 130.0,
+                    height: 130.0,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(23.0),
                       image: DecorationImage(
@@ -76,21 +85,20 @@ class _ContactDetailsState extends State<ContactDetails> {
                   padding: const EdgeInsets.only(top: 10),
                   child: Text(
                     widget.post.data["fullName"],
-                    style: TextStyle(
-                      fontFamily: 'Segoe UI',
-                      fontSize: ResponsiveFlutter.of(context).fontSize(4.5),
+                    style: GoogleFonts.crimsonText(
+                      fontSize: ResponsiveFlutter.of(context).fontSize(5),
                       fontWeight: FontWeight.w700,
                     ),
                     textAlign: TextAlign.left,
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(),
                   child: Text(
                     widget.post.data["Post"],
-                    style: TextStyle(
-                      fontFamily: 'Segoe UI',
-                      fontSize: ResponsiveFlutter.of(context).fontSize(3),
+                    style: GoogleFonts.crimsonText(
+                      color: Colors.grey[700],
+                      fontSize: ResponsiveFlutter.of(context).fontSize(4),
                     ),
                     textAlign: TextAlign.left,
                   ),
@@ -105,9 +113,9 @@ class _ContactDetailsState extends State<ContactDetails> {
                         padding: const EdgeInsets.only(right: 0),
                         child: Text(
                           'Phone Number Details:',
-                          style: TextStyle(
-                            fontFamily: 'Segoe UI',
-                            fontSize: ResponsiveFlutter.of(context).fontSize(2),
+                          style: GoogleFonts.robotoSlab(
+                            fontSize:
+                                ResponsiveFlutter.of(context).fontSize(2.2),
                             fontWeight: FontWeight.w700,
                           ),
                           textAlign: TextAlign.left,
@@ -117,7 +125,7 @@ class _ContactDetailsState extends State<ContactDetails> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
                           Container(
-                            width: MediaQuery.of(context).size.width * 0.43,
+                            width: MediaQuery.of(context).size.width * 0.50,
                             decoration: BoxDecoration(
                               border: Border.all(
                                   width: 1.0, color: const Color(0xffe4480f)),
@@ -125,7 +133,7 @@ class _ContactDetailsState extends State<ContactDetails> {
                           ),
                           Container(
                             width: ((MediaQuery.of(context).size.width) -
-                                (MediaQuery.of(context).size.width * 0.49)),
+                                (MediaQuery.of(context).size.width * 0.56)),
                             decoration: BoxDecoration(
                               border: Border.all(
                                   width: 1.0, color: const Color(0xffb9b6b6)),
@@ -140,10 +148,11 @@ class _ContactDetailsState extends State<ContactDetails> {
                             padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                             child: Text(
                               'Work Number:',
-                              style: TextStyle(
-                                fontFamily: 'Segoe UI',
+                              style: GoogleFonts.oxygen(
                                 fontSize:
                                     ResponsiveFlutter.of(context).fontSize(2),
+                                color: Colors.grey[700],
+                                fontWeight: FontWeight.w700,
                               ),
                               textAlign: TextAlign.left,
                             ),
@@ -163,10 +172,10 @@ class _ContactDetailsState extends State<ContactDetails> {
                               )),
                           Text(
                             widget.post.data["WorkPhone"].toString(),
-                            style: TextStyle(
-                              fontFamily: 'Segoe UI',
+                            style: GoogleFonts.crimsonText(
                               fontSize:
-                                  ResponsiveFlutter.of(context).fontSize(2),
+                                  ResponsiveFlutter.of(context).fontSize(2.8),
+                              fontWeight: FontWeight.w700,
                             ),
                             textAlign: TextAlign.left,
                           ),
@@ -190,10 +199,11 @@ class _ContactDetailsState extends State<ContactDetails> {
                             padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                             child: Text(
                               'Personal Number:',
-                              style: TextStyle(
-                                fontFamily: 'Segoe UI',
+                              style: GoogleFonts.oxygen(
                                 fontSize:
                                     ResponsiveFlutter.of(context).fontSize(2),
+                                color: Colors.grey[700],
+                                fontWeight: FontWeight.w700,
                               ),
                               textAlign: TextAlign.left,
                             ),
@@ -211,10 +221,10 @@ class _ContactDetailsState extends State<ContactDetails> {
                               )),
                           Text(
                             widget.post.data["PersonalPhone"].toString(),
-                            style: TextStyle(
-                              fontFamily: 'Segoe UI',
+                            style: GoogleFonts.crimsonText(
                               fontSize:
-                                  ResponsiveFlutter.of(context).fontSize(2),
+                                  ResponsiveFlutter.of(context).fontSize(2.8),
+                              fontWeight: FontWeight.w700,
                             ),
                             textAlign: TextAlign.left,
                           ),
@@ -235,9 +245,9 @@ class _ContactDetailsState extends State<ContactDetails> {
                         padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                         child: Text(
                           'Address Details:',
-                          style: TextStyle(
-                            fontFamily: 'Segoe UI',
-                            fontSize: ResponsiveFlutter.of(context).fontSize(2),
+                          style: GoogleFonts.robotoSlab(
+                            fontSize:
+                                ResponsiveFlutter.of(context).fontSize(2.2),
                             fontWeight: FontWeight.w700,
                           ),
                           textAlign: TextAlign.left,
@@ -269,23 +279,54 @@ class _ContactDetailsState extends State<ContactDetails> {
                           Padding(
                             padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
                             child: Text(
-                              'Address:',
-                              style: TextStyle(
-                                fontFamily: 'Segoe UI',
+                              'Temporary:',
+                              style: GoogleFonts.oxygen(
                                 fontSize:
                                     ResponsiveFlutter.of(context).fontSize(2),
+                                color: Colors.grey[700],
+                                fontWeight: FontWeight.w700,
                               ),
                               textAlign: TextAlign.left,
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top: 5),
+                            padding: const EdgeInsets.only(top: 10),
                             child: Text(
                               widget.post.data["address"],
-                              style: TextStyle(
-                                fontFamily: 'Segoe UI',
+                              style: GoogleFonts.crimsonText(
+                                fontSize:
+                                    ResponsiveFlutter.of(context).fontSize(2.3),
+                                fontWeight: FontWeight.w700,
+                              ),
+                              textAlign: TextAlign.left,
+                            ),
+                          )
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+                            child: Text(
+                              'Permanent:',
+                              style: GoogleFonts.oxygen(
                                 fontSize:
                                     ResponsiveFlutter.of(context).fontSize(2),
+                                color: Colors.grey[700],
+                                fontWeight: FontWeight.w700,
+                              ),
+                              textAlign: TextAlign.left,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: Text(
+                              widget.post.data["Permanentaddress"],
+                              style: GoogleFonts.crimsonText(
+                                fontSize:
+                                    ResponsiveFlutter.of(context).fontSize(2.3),
+                                fontWeight: FontWeight.w700,
                               ),
                               textAlign: TextAlign.left,
                             ),
@@ -296,9 +337,9 @@ class _ContactDetailsState extends State<ContactDetails> {
                         padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                         child: Text(
                           'Email:',
-                          style: TextStyle(
-                            fontFamily: 'Segoe UI',
-                            fontSize: ResponsiveFlutter.of(context).fontSize(2),
+                          style: GoogleFonts.robotoSlab(
+                            fontSize:
+                                ResponsiveFlutter.of(context).fontSize(2.2),
                             fontWeight: FontWeight.w700,
                           ),
                           textAlign: TextAlign.left,
@@ -330,24 +371,24 @@ class _ContactDetailsState extends State<ContactDetails> {
                           Padding(
                             padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                             child: Text(
-                              'Email:',
-                              style: TextStyle(
-                                fontFamily: 'Segoe UI',
+                              ' Work:',
+                              style: GoogleFonts.oxygen(
                                 fontSize:
                                     ResponsiveFlutter.of(context).fontSize(2),
+                                color: Colors.grey[700],
+                                fontWeight: FontWeight.w700,
                               ),
                               textAlign: TextAlign.left,
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(
-                                left: MediaQuery.of(context).size.width * 0.2),
+                            padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                             child: Text(
                               widget.post.data["email"],
-                              style: TextStyle(
-                                fontFamily: 'Segoe UI',
+                              style: GoogleFonts.robotoSlab(
                                 fontSize:
                                     ResponsiveFlutter.of(context).fontSize(2),
+                                fontWeight: FontWeight.w700,
                               ),
                               textAlign: TextAlign.left,
                             ),
@@ -364,13 +405,53 @@ class _ContactDetailsState extends State<ContactDetails> {
                               )),
                         ],
                       ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                            child: Text(
+                              'Personal:',
+                              style: GoogleFonts.oxygen(
+                                fontSize:
+                                    ResponsiveFlutter.of(context).fontSize(2),
+                                color: Colors.grey[700],
+                                fontWeight: FontWeight.w700,
+                              ),
+                              textAlign: TextAlign.left,
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(),
+                            child: Text(
+                              widget.post.data["personalemail"],
+                              style: GoogleFonts.robotoSlab(
+                                fontSize:
+                                    ResponsiveFlutter.of(context).fontSize(2),
+                                fontWeight: FontWeight.w700,
+                              ),
+                              textAlign: TextAlign.left,
+                            ),
+                          ),
+                          Padding(
+                              padding: const EdgeInsets.only(),
+                              child: new IconButton(
+                                icon: new Icon(
+                                  Icons.email,
+                                ),
+                                onPressed: () {
+                                  sendemail(widget.post.data["personalemail"]);
+                                },
+                              )),
+                        ],
+                      ),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                         child: Text(
                           'DOB Details:',
-                          style: TextStyle(
-                            fontFamily: 'Segoe UI',
-                            fontSize: ResponsiveFlutter.of(context).fontSize(2),
+                          style: GoogleFonts.robotoSlab(
+                            fontSize:
+                                ResponsiveFlutter.of(context).fontSize(2.2),
                             fontWeight: FontWeight.w700,
                           ),
                           textAlign: TextAlign.left,
@@ -400,13 +481,14 @@ class _ContactDetailsState extends State<ContactDetails> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                            padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                             child: Text(
                               'Date of Birth:',
-                              style: TextStyle(
-                                fontFamily: 'Segoe UI',
+                              style: GoogleFonts.oxygen(
                                 fontSize:
                                     ResponsiveFlutter.of(context).fontSize(2),
+                                color: Colors.grey[700],
+                                fontWeight: FontWeight.w700,
                               ),
                               textAlign: TextAlign.left,
                             ),
@@ -419,10 +501,10 @@ class _ContactDetailsState extends State<ContactDetails> {
                                   widget.post.data["DOB_M"].toString() +
                                   ' / ' +
                                   widget.post.data["DOB_Y"].toString(),
-                              style: TextStyle(
-                                fontFamily: 'Segoe UI',
+                              style: GoogleFonts.robotoSlab(
                                 fontSize:
-                                    ResponsiveFlutter.of(context).fontSize(2),
+                                    ResponsiveFlutter.of(context).fontSize(2.3),
+                                fontWeight: FontWeight.w700,
                               ),
                               textAlign: TextAlign.left,
                             ),

@@ -32,8 +32,17 @@ class _CalendarScreenState extends State<CalendarScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.blue[600], Colors.red[600]],
+              stops: [0.0, 1.0],
+            ),
+          ),
+        ),
         title: Center(child: Text("Calendar")),
       ),
+      backgroundColor: Colors.grey[200],
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: 500,
@@ -55,10 +64,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 selectedColor: Colors.pink,
                 todayColor: Colors.red,
                 eventColor: Colors.grey,
-                bottomBarArrowColor: Theme.of(context).iconTheme.color,
+                bottomBarArrowColor: Colors.pink,
                 dayOfWeekStyle: TextStyle(
-                    color:
-                        Theme.of(context).inputDecorationTheme.labelStyle.color,
+                    color: Colors.red,
                     fontWeight: FontWeight.w800,
                     fontSize: 11),
               ),

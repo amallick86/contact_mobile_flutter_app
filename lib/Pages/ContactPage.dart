@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'ContactDetails.dart';
 
@@ -79,8 +80,18 @@ class _ContactPageState extends State<ContactPage> {
     //var currentStr = "";
     return Scaffold(
       appBar: AppBar(
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.blue[600], Colors.red[600]],
+              stops: [0.0, 1.0],
+            ),
+          ),
+        ),
         title: Center(
-          child: Text("Active Contact"),
+          child: Text(
+            "Active Contact",
+          ),
         ),
         // actions: <Widget>[
         //   IconButton(
@@ -91,6 +102,7 @@ class _ContactPageState extends State<ContactPage> {
         // ],
         toolbarHeight: 50,
       ),
+      backgroundColor: Colors.grey[200],
       body: Container(
         child: RefreshIndicator(
           onRefresh: refreshList,
@@ -111,71 +123,89 @@ class _ContactPageState extends State<ContactPage> {
                           itemBuilder: (_, index) {
                             String _photo =
                                 snapshot.data[index].data["photoURL"];
-                            return Slidable(
-                              actionPane: SlidableDrawerActionPane(),
-                              actionExtentRatio: 0.25,
-                              actions: <Widget>[
-                                IconSlideAction(
-                                  caption: 'Work Call',
-                                  iconWidget: Icon(
-                                    Icons.call,
-                                    color: Colors.green,
+                            return Column(
+                              children: [
+                                Slidable(
+                                  actionPane: SlidableDrawerActionPane(),
+                                  actionExtentRatio: 0.25,
+                                  actions: <Widget>[
+                                    IconSlideAction(
+                                      caption: 'Work Call',
+                                      iconWidget: Icon(
+                                        Icons.call,
+                                        color: Colors.green,
+                                      ),
+                                      onTap: () {
+                                        call(snapshot
+                                            .data[index].data["WorkPhone"]
+                                            .toString());
+                                      },
+                                    ),
+                                    IconSlideAction(
+                                      caption: 'Work SMS',
+                                      iconWidget: Icon(
+                                        Icons.message,
+                                        color: Colors.blue,
+                                      ),
+                                      onTap: () {
+                                        sendsms(snapshot
+                                            .data[index].data["WorkPhone"]
+                                            .toString());
+                                      },
+                                    ),
+                                  ],
+                                  secondaryActions: [
+                                    IconSlideAction(
+                                      caption: ' Personal Call',
+                                      iconWidget: Icon(
+                                        Icons.call,
+                                        color: Colors.green,
+                                      ),
+                                      onTap: () {
+                                        call(snapshot
+                                            .data[index].data["PersonalPhone"]
+                                            .toString());
+                                      },
+                                    ),
+                                    IconSlideAction(
+                                      caption: 'Personal SMS',
+                                      iconWidget: Icon(
+                                        Icons.message,
+                                        color: Colors.blue,
+                                      ),
+                                      onTap: () {
+                                        sendsms(snapshot
+                                            .data[index].data["PersonalPhone"]
+                                            .toString());
+                                      },
+                                    ),
+                                  ],
+                                  child: ListTile(
+                                    onTap: () => navigateToContactDetail(
+                                        snapshot.data[index]),
+                                    leading: CircleAvatar(
+                                      backgroundImage: NetworkImage(_photo),
+                                    ),
+                                    title: Text(
+                                      snapshot.data[index].data["fullName"],
+                                      style:
+                                          GoogleFonts.crimsonText(fontSize: 22),
+                                    ),
+                                    subtitle: Text(
+                                      snapshot.data[index].data["email"],
+                                      style:
+                                          GoogleFonts.crimsonText(fontSize: 16),
+                                    ),
                                   ),
-                                  onTap: () {
-                                    call(snapshot.data[index].data["WorkPhone"]
-                                        .toString());
-                                  },
                                 ),
-                                IconSlideAction(
-                                  caption: 'Work SMS',
-                                  iconWidget: Icon(
-                                    Icons.message,
-                                    color: Colors.blue,
-                                  ),
-                                  onTap: () {
-                                    sendsms(snapshot
-                                        .data[index].data["WorkPhone"]
-                                        .toString());
-                                  },
+                                Divider(
+                                  color: Colors.grey[400],
+                                  height: 0,
+                                  thickness: 1,
+                                  indent: 0,
+                                  endIndent: 0,
                                 ),
                               ],
-                              secondaryActions: [
-                                IconSlideAction(
-                                  caption: ' Personal Call',
-                                  iconWidget: Icon(
-                                    Icons.call,
-                                    color: Colors.green,
-                                  ),
-                                  onTap: () {
-                                    call(snapshot
-                                        .data[index].data["PersonalPhone"]
-                                        .toString());
-                                  },
-                                ),
-                                IconSlideAction(
-                                  caption: 'Personal SMS',
-                                  iconWidget: Icon(
-                                    Icons.message,
-                                    color: Colors.blue,
-                                  ),
-                                  onTap: () {
-                                    sendsms(snapshot
-                                        .data[index].data["PersonalPhone"]
-                                        .toString());
-                                  },
-                                ),
-                              ],
-                              child: ListTile(
-                                onTap: () => navigateToContactDetail(
-                                    snapshot.data[index]),
-                                leading: CircleAvatar(
-                                  backgroundImage: NetworkImage(_photo),
-                                ),
-                                title:
-                                    Text(snapshot.data[index].data["fullName"]),
-                                subtitle:
-                                    Text(snapshot.data[index].data["email"]),
-                              ),
                             );
                           });
                     }

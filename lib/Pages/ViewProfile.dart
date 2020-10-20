@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_flutter/responsive_flutter.dart';
 
 class SelfProfile extends StatefulWidget {
@@ -27,8 +28,17 @@ class _SelfProfileState extends State<SelfProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Center(child: Text('Profile')),
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.blue[600], Colors.red[600]],
+                stops: [0.0, 1.0],
+              ),
+            ),
+          ),
+          title: Center(child: Text('PROFILE')),
         ),
+        backgroundColor: Colors.grey[200],
         body: Container(
           child: StreamBuilder(
               stream: Firestore.instance
@@ -51,13 +61,12 @@ class _SelfProfileState extends State<SelfProfile> {
                     height: MediaQuery.of(context).size.height,
                     child: SingleChildScrollView(
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.only(top: 10),
                             child: Container(
-                              width: MediaQuery.of(context).size.width * 0.30,
-                              height: MediaQuery.of(context).size.height * 0.20,
+                              width: 130.0,
+                              height: 130.0,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(23.0),
                                 image: DecorationImage(
@@ -80,23 +89,22 @@ class _SelfProfileState extends State<SelfProfile> {
                             padding: const EdgeInsets.only(top: 10),
                             child: Text(
                               userDocument["fullName"],
-                              style: TextStyle(
-                                fontFamily: 'Segoe UI',
+                              style: GoogleFonts.crimsonText(
                                 fontSize:
-                                    ResponsiveFlutter.of(context).fontSize(4.5),
+                                    ResponsiveFlutter.of(context).fontSize(5),
                                 fontWeight: FontWeight.w700,
                               ),
                               textAlign: TextAlign.left,
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top: 10),
+                            padding: const EdgeInsets.only(),
                             child: Text(
                               userDocument["Post"],
-                              style: TextStyle(
-                                fontFamily: 'Segoe UI',
+                              style: GoogleFonts.crimsonText(
+                                color: Colors.grey[700],
                                 fontSize:
-                                    ResponsiveFlutter.of(context).fontSize(3),
+                                    ResponsiveFlutter.of(context).fontSize(4),
                               ),
                               textAlign: TextAlign.left,
                             ),
@@ -112,10 +120,9 @@ class _SelfProfileState extends State<SelfProfile> {
                                   padding: const EdgeInsets.only(right: 0),
                                   child: Text(
                                     'Phone Number Details:',
-                                    style: TextStyle(
-                                      fontFamily: 'Segoe UI',
+                                    style: GoogleFonts.robotoSlab(
                                       fontSize: ResponsiveFlutter.of(context)
-                                          .fontSize(2),
+                                          .fontSize(2.2),
                                       fontWeight: FontWeight.w700,
                                     ),
                                     textAlign: TextAlign.left,
@@ -126,7 +133,7 @@ class _SelfProfileState extends State<SelfProfile> {
                                   children: <Widget>[
                                     Container(
                                       width: MediaQuery.of(context).size.width *
-                                          0.43,
+                                          0.50,
                                       decoration: BoxDecoration(
                                         border: Border.all(
                                             width: 1.0,
@@ -138,7 +145,7 @@ class _SelfProfileState extends State<SelfProfile> {
                                               .size
                                               .width) -
                                           (MediaQuery.of(context).size.width *
-                                              0.49)),
+                                              0.56)),
                                       decoration: BoxDecoration(
                                         border: Border.all(
                                             width: 1.0,
@@ -156,32 +163,30 @@ class _SelfProfileState extends State<SelfProfile> {
                                           0, 10, 0, 0),
                                       child: Text(
                                         'Work Number:',
-                                        style: TextStyle(
-                                          fontFamily: 'Segoe UI',
+                                        style: GoogleFonts.oxygen(
                                           fontSize:
                                               ResponsiveFlutter.of(context)
                                                   .fontSize(2),
+                                          color: Colors.grey[700],
+                                          fontWeight: FontWeight.w700,
                                         ),
                                         textAlign: TextAlign.left,
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(
-                                        top: 10,
-                                      ),
+                                      padding: const EdgeInsets.fromLTRB(
+                                          0, 10, 0, 0),
                                       child: Text(
-                                        '+977-' +
-                                            userDocument["WorkPhone"]
-                                                .toString(),
-                                        style: TextStyle(
-                                          fontFamily: 'Segoe UI',
+                                        userDocument["WorkPhone"].toString(),
+                                        style: GoogleFonts.crimsonText(
                                           fontSize:
                                               ResponsiveFlutter.of(context)
-                                                  .fontSize(2),
+                                                  .fontSize(2.8),
+                                          fontWeight: FontWeight.w700,
                                         ),
                                         textAlign: TextAlign.left,
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
                                 Row(
@@ -189,45 +194,45 @@ class _SelfProfileState extends State<SelfProfile> {
                                       MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Padding(
-                                      padding:
-                                          const EdgeInsets.fromLTRB(0, 5, 0, 0),
+                                      padding: const EdgeInsets.fromLTRB(
+                                          0, 10, 0, 10),
                                       child: Text(
                                         'Personal Number:',
-                                        style: TextStyle(
-                                          fontFamily: 'Segoe UI',
+                                        style: GoogleFonts.oxygen(
                                           fontSize:
                                               ResponsiveFlutter.of(context)
                                                   .fontSize(2),
+                                          color: Colors.grey[700],
+                                          fontWeight: FontWeight.w700,
                                         ),
                                         textAlign: TextAlign.left,
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 5),
+                                      padding: const EdgeInsets.fromLTRB(
+                                          0, 10, 0, 0),
                                       child: Text(
-                                        '+977-' +
-                                            userDocument["PersonalPhone"]
-                                                .toString(),
-                                        style: TextStyle(
-                                          fontFamily: 'Segoe UI',
+                                        userDocument["PersonalPhone"]
+                                            .toString(),
+                                        style: GoogleFonts.crimsonText(
                                           fontSize:
                                               ResponsiveFlutter.of(context)
-                                                  .fontSize(2),
+                                                  .fontSize(2.8),
+                                          fontWeight: FontWeight.w700,
                                         ),
                                         textAlign: TextAlign.left,
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
                                 Padding(
                                   padding:
-                                      const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                      const EdgeInsets.fromLTRB(0, 0, 0, 0),
                                   child: Text(
                                     'Address Details:',
-                                    style: TextStyle(
-                                      fontFamily: 'Segoe UI',
+                                    style: GoogleFonts.robotoSlab(
                                       fontSize: ResponsiveFlutter.of(context)
-                                          .fontSize(2),
+                                          .fontSize(2.2),
                                       fontWeight: FontWeight.w700,
                                     ),
                                     textAlign: TextAlign.left,
@@ -267,25 +272,60 @@ class _SelfProfileState extends State<SelfProfile> {
                                       padding:
                                           const EdgeInsets.fromLTRB(0, 5, 0, 0),
                                       child: Text(
-                                        'Address:',
-                                        style: TextStyle(
-                                          fontFamily: 'Segoe UI',
+                                        'Temporary:',
+                                        style: GoogleFonts.oxygen(
                                           fontSize:
                                               ResponsiveFlutter.of(context)
                                                   .fontSize(2),
+                                          color: Colors.grey[700],
+                                          fontWeight: FontWeight.w700,
                                         ),
                                         textAlign: TextAlign.left,
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 5),
+                                      padding: const EdgeInsets.only(top: 10),
                                       child: Text(
                                         userDocument["address"],
-                                        style: TextStyle(
-                                          fontFamily: 'Segoe UI',
+                                        style: GoogleFonts.crimsonText(
+                                          fontSize:
+                                              ResponsiveFlutter.of(context)
+                                                  .fontSize(2.3),
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                        textAlign: TextAlign.left,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.fromLTRB(0, 5, 0, 0),
+                                      child: Text(
+                                        'Permanent:',
+                                        style: GoogleFonts.oxygen(
                                           fontSize:
                                               ResponsiveFlutter.of(context)
                                                   .fontSize(2),
+                                          color: Colors.grey[700],
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                        textAlign: TextAlign.left,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 10),
+                                      child: Text(
+                                        userDocument["Permanentaddress"],
+                                        style: GoogleFonts.crimsonText(
+                                          fontSize:
+                                              ResponsiveFlutter.of(context)
+                                                  .fontSize(2.3),
+                                          fontWeight: FontWeight.w700,
                                         ),
                                         textAlign: TextAlign.left,
                                       ),
@@ -297,10 +337,9 @@ class _SelfProfileState extends State<SelfProfile> {
                                       const EdgeInsets.fromLTRB(0, 10, 0, 0),
                                   child: Text(
                                     'Email:',
-                                    style: TextStyle(
-                                      fontFamily: 'Segoe UI',
+                                    style: GoogleFonts.robotoSlab(
                                       fontSize: ResponsiveFlutter.of(context)
-                                          .fontSize(2),
+                                          .fontSize(2.2),
                                       fontWeight: FontWeight.w700,
                                     ),
                                     textAlign: TextAlign.left,
@@ -340,40 +379,79 @@ class _SelfProfileState extends State<SelfProfile> {
                                       padding: const EdgeInsets.fromLTRB(
                                           0, 10, 0, 0),
                                       child: Text(
-                                        'Email:',
-                                        style: TextStyle(
-                                          fontFamily: 'Segoe UI',
+                                        ' Work:',
+                                        style: GoogleFonts.oxygen(
                                           fontSize:
                                               ResponsiveFlutter.of(context)
                                                   .fontSize(2),
+                                          color: Colors.grey[700],
+                                          fontWeight: FontWeight.w700,
                                         ),
                                         textAlign: TextAlign.left,
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 10),
+                                      padding: const EdgeInsets.fromLTRB(
+                                          0, 10, 10, 0),
                                       child: Text(
                                         userDocument["email"],
-                                        style: TextStyle(
-                                          fontFamily: 'Segoe UI',
+                                        style: GoogleFonts.robotoSlab(
                                           fontSize:
                                               ResponsiveFlutter.of(context)
                                                   .fontSize(2),
+                                          fontWeight: FontWeight.w700,
                                         ),
                                         textAlign: TextAlign.left,
                                       ),
-                                    )
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          0, 10, 0, 10),
+                                      child: Text(
+                                        'Personal:',
+                                        style: GoogleFonts.oxygen(
+                                          fontSize:
+                                              ResponsiveFlutter.of(context)
+                                                  .fontSize(2),
+                                          color: Colors.grey[700],
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                        textAlign: TextAlign.left,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                        top: 10,
+                                        bottom: 10,
+                                        right: 10,
+                                      ),
+                                      child: Text(
+                                        userDocument["personalemail"],
+                                        style: GoogleFonts.robotoSlab(
+                                          fontSize:
+                                              ResponsiveFlutter.of(context)
+                                                  .fontSize(2),
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                        textAlign: TextAlign.left,
+                                      ),
+                                    ),
                                   ],
                                 ),
                                 Padding(
                                   padding:
-                                      const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                      const EdgeInsets.fromLTRB(0, 0, 0, 0),
                                   child: Text(
                                     'DOB Details:',
-                                    style: TextStyle(
-                                      fontFamily: 'Segoe UI',
+                                    style: GoogleFonts.robotoSlab(
                                       fontSize: ResponsiveFlutter.of(context)
-                                          .fontSize(2),
+                                          .fontSize(2.2),
                                       fontWeight: FontWeight.w700,
                                     ),
                                     textAlign: TextAlign.left,
@@ -411,31 +489,33 @@ class _SelfProfileState extends State<SelfProfile> {
                                   children: <Widget>[
                                     Padding(
                                       padding: const EdgeInsets.fromLTRB(
-                                          0, 10, 0, 0),
+                                          0, 10, 0, 10),
                                       child: Text(
                                         'Date of Birth:',
-                                        style: TextStyle(
-                                          fontFamily: 'Segoe UI',
+                                        style: GoogleFonts.oxygen(
                                           fontSize:
                                               ResponsiveFlutter.of(context)
                                                   .fontSize(2),
+                                          color: Colors.grey[700],
+                                          fontWeight: FontWeight.w700,
                                         ),
                                         textAlign: TextAlign.left,
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 10),
+                                      padding: const EdgeInsets.only(
+                                          right: 10, top: 10, bottom: 0),
                                       child: Text(
                                         userDocument["DOB_D"].toString() +
                                             ' / ' +
                                             userDocument["DOB_M"].toString() +
                                             ' / ' +
                                             userDocument["DOB_Y"].toString(),
-                                        style: TextStyle(
-                                          fontFamily: 'Segoe UI',
+                                        style: GoogleFonts.robotoSlab(
                                           fontSize:
                                               ResponsiveFlutter.of(context)
-                                                  .fontSize(2),
+                                                  .fontSize(2.3),
+                                          fontWeight: FontWeight.w700,
                                         ),
                                         textAlign: TextAlign.left,
                                       ),

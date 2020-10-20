@@ -16,8 +16,17 @@ class _ImageViewerState extends State<ImageViewer> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.blue[600], Colors.red[600]],
+                stops: [0.0, 1.0],
+              ),
+            ),
+          ),
           title: Center(child: Text("Gallery View")),
         ),
+        backgroundColor: Colors.grey[200],
         body: Center(
           child: Container(
             child: Image.network(

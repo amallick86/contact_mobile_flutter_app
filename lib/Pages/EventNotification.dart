@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:responsive_flutter/responsive_flutter.dart';
 
 class EventNotification extends StatefulWidget {
   EventNotification({Key key}) : super(key: key);
@@ -38,6 +40,7 @@ class _EventNotificationState extends State<EventNotification> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[200],
       body: Container(
         child: RefreshIndicator(
           onRefresh: refreshList,
@@ -58,6 +61,9 @@ class _EventNotificationState extends State<EventNotification> {
                         itemBuilder: (_, index) {
                           DateTime dateTime =
                               snapshot.data[index].data["eventDate"].toDate();
+                          String fdateonly = DateFormat.yMMMMd('en_US')
+                              .add_jm()
+                              .format(dateTime);
                           if (dateTime.isAfter(DateTime.now())) {
                             return Padding(
                               padding: EdgeInsets.only(
@@ -71,17 +77,42 @@ class _EventNotificationState extends State<EventNotification> {
                                   children: [
                                     ListTile(
                                         leading: Icon(Icons.event_available),
-                                        title: Text(snapshot
-                                            .data[index].data["eventTitle"]),
-                                        subtitle: Text(dateTime.toString())),
+                                        title: Center(
+                                          child: Text(
+                                            snapshot
+                                                .data[index].data["eventTitle"],
+                                            style: GoogleFonts.oxygen(
+                                              fontSize:
+                                                  ResponsiveFlutter.of(context)
+                                                      .fontSize(2.2),
+                                              fontWeight: FontWeight.w800,
+                                            ),
+                                          ),
+                                        ),
+                                        subtitle: Center(
+                                          child: Text(
+                                            fdateonly,
+                                            style: GoogleFonts.oxygen(
+                                              fontSize:
+                                                  ResponsiveFlutter.of(context)
+                                                      .fontSize(1.8),
+                                              color: Colors.grey[700],
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        )),
                                     Padding(
                                       padding: const EdgeInsets.all(16.0),
                                       child: Text(
                                         snapshot
                                             .data[index].data["eventDetails"],
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText2,
+                                        style: GoogleFonts.oxygen(
+                                          fontSize:
+                                              ResponsiveFlutter.of(context)
+                                                  .fontSize(2.1),
+                                          color: Colors.grey[700],
+                                          fontWeight: FontWeight.w600,
+                                        ),
                                       ),
                                     ),
                                   ],

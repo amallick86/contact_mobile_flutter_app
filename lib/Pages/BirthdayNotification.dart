@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:responsive_flutter/responsive_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'ContactDetails.dart';
@@ -61,6 +63,7 @@ class _BirthdayNotificationState extends State<BirthdayNotification> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[200],
       body: Container(
           child: FutureBuilder(
               future: _data,
@@ -78,9 +81,13 @@ class _BirthdayNotificationState extends State<BirthdayNotification> {
                       itemBuilder: (_, index) {
                         String _photo = snapshot.data[index].data["photoURL"];
                         DateTime today = DateTime.now();
-                        int bday = snapshot.data[index].data["DOB_D"];
-                        int bmonth = snapshot.data[index].data["DOB_M"];
-                        if (today.month == bmonth && today.day == bday) {
+                        String month = today.month.toString();
+                        String day = today.day.toString();
+                        String bday =
+                            snapshot.data[index].data["DOB_D"].toString();
+                        String bmonth =
+                            snapshot.data[index].data["DOB_M"].toString();
+                        if (month == bmonth && day == bday) {
                           return Card(
                             clipBehavior: Clip.antiAlias,
                             child: Column(
@@ -92,16 +99,27 @@ class _BirthdayNotificationState extends State<BirthdayNotification> {
                                     backgroundImage: NetworkImage(_photo),
                                   ),
                                   title: Text(
-                                      snapshot.data[index].data["fullName"]),
+                                    snapshot.data[index].data["fullName"],
+                                    style: GoogleFonts.oxygen(
+                                      fontSize: ResponsiveFlutter.of(context)
+                                          .fontSize(2.2),
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
                                   subtitle: Text(
                                     "Today is " +
                                         snapshot.data[index].data["fullName"] +
                                         "'s Birthday ",
-                                    style: TextStyle(color: Colors.red[300]),
+                                    style: GoogleFonts.oxygen(
+                                      fontSize: ResponsiveFlutter.of(context)
+                                          .fontSize(1.8),
+                                      color: Colors.red[300],
+                                      fontWeight: FontWeight.w700,
+                                    ),
                                   ),
                                 ),
                                 ButtonBar(
-                                  alignment: MainAxisAlignment.spaceAround,
+                                  alignment: MainAxisAlignment.spaceEvenly,
                                   children: [
                                     FlatButton(
                                       onPressed: () {
@@ -127,6 +145,7 @@ class _BirthdayNotificationState extends State<BirthdayNotification> {
                               ],
                             ),
                           );
+                          // ignore: unrelated_type_equality_checks
                         } else {
                           return Padding(padding: EdgeInsets.only());
                         }

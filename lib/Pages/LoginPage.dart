@@ -90,36 +90,41 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        // backgroundColor: Colors.grey[300],
-        body: Container(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
-      decoration: new BoxDecoration(
-        gradient: new LinearGradient(
-            colors: [
-              Colors.indigoAccent,
-              Colors.blue[200],
-            ],
-            begin: const FractionalOffset(0.0, 0.0),
-            end: const FractionalOffset(1.0, 0.0),
-            stops: [0.0, 1.0],
-            tileMode: TileMode.clamp),
-      ),
-      child: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).requestFocus(new FocusNode());
-        },
-        child: SingleChildScrollView(
-          child: Stack(
-            children: <Widget>[
-              showLogo(),
-              _showForm(),
-              _showCircularProgress(),
-            ],
+        appBar: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.blue[600], Colors.red[600]],
+                stops: [0.0, 1.0],
+              ),
+            ),
           ),
+          title: Center(child: Text("Seva Development")),
         ),
-      ),
-    ));
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.blue[200], Colors.red[200]],
+              stops: [0.0, 1.0],
+            ),
+          ),
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: GestureDetector(
+            onTap: () {
+              FocusScope.of(context).requestFocus(new FocusNode());
+            },
+            child: SingleChildScrollView(
+              child: Stack(
+                children: <Widget>[
+                  showLogo(),
+                  _showForm(),
+                  _showCircularProgress(),
+                ],
+              ),
+            ),
+          ),
+        ));
   }
 
   Widget _showCircularProgress() {
@@ -157,7 +162,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
 
   Widget _showForm() {
     return Padding(
-      padding: const EdgeInsets.only(top: 260, left: 10.0, right: 10.0),
+      padding: const EdgeInsets.only(top: 270, left: 10.0, right: 10.0),
       child: new Container(
           padding: EdgeInsets.only(),
           child: new Form(
@@ -166,8 +171,8 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
               elevation: 5,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(30),
-                      topRight: Radius.circular(30))),
+                      bottomLeft: Radius.circular(10),
+                      bottomRight: Radius.circular(10))),
               color: Colors.indigo[50],
               clipBehavior: Clip.antiAlias,
               child: Padding(
@@ -208,18 +213,19 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
   Widget showLogo() {
     return Container(
       alignment: Alignment.topCenter,
-      child: Padding(
-        padding: EdgeInsets.only(
-          top: 50,
-        ),
+      padding: const EdgeInsets.only(top: 70, left: 10.0, right: 10.0),
+      child: Card(
+        elevation: 5,
+        color: Color(0xff262525),
         child: Container(
-          width: 200,
           height: 200,
-          child: CircleAvatar(
-            backgroundColor: Colors.transparent,
-            child: Image.asset(
-              'assets/logo.png',
-              fit: BoxFit.cover,
+          decoration: BoxDecoration(
+            color: Color(0xff262525),
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+            image: DecorationImage(
+              image: AssetImage('assets/logo.png'),
+              fit: BoxFit.contain,
             ),
           ),
         ),
@@ -239,10 +245,10 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
             fillColor: Colors.white,
             //border: InputBorder.none,
             enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(40.0)),
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
                 borderSide: BorderSide(color: Colors.grey)),
             border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(40.0)),
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
                 borderSide: BorderSide(color: Colors.blue)),
             hintText: 'Email',
             hintStyle: TextStyle(color: Colors.grey),
@@ -268,10 +274,10 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
             fillColor: Colors.white,
             //border: InputBorder.none,
             enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(40.0)),
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
                 borderSide: BorderSide(color: Colors.grey)),
             border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(40.0)),
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
                 borderSide: BorderSide(color: Colors.blue)),
             hintText: 'Password',
             hintStyle: TextStyle(color: Colors.grey),
@@ -301,8 +307,8 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
           child: new RaisedButton(
             elevation: 5.0,
             shape: new RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(50.0)),
-            color: Colors.indigoAccent,
+                borderRadius: new BorderRadius.circular(5.0)),
+            color: Colors.green[600],
             child: new Text(_isLoginForm ? 'Login' : 'Create account',
                 style: new TextStyle(fontSize: 20.0, color: Colors.white)),
             onPressed: validateAndSubmit,
