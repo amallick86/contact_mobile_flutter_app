@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_flutter/responsive_flutter.dart';
@@ -57,12 +56,10 @@ class _SelfProfileState extends State<SelfProfile> {
                           width: MediaQuery.of(context).size.width,
                           height: MediaQuery.of(context).size.width * 1.1,
                           decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                  colors: [Colors.green, Colors.blue]),
                               image: DecorationImage(
-                                image: NetworkImage(userDocument["photoURL"]),
-                                fit: BoxFit.fill,
-                              )),
+                            image: NetworkImage(userDocument["photoURL"]),
+                            fit: BoxFit.fill,
+                          )),
                         ),
                         Positioned(
                           // --> App Bar

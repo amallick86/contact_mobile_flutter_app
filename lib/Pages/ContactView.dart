@@ -125,6 +125,7 @@ class _ContactViewState extends State<ContactView> {
                                   children: [
                                     Icon(
                                       Icons.cake_rounded,
+                                      color: Colors.red[600],
                                       size: 30,
                                     ),
                                     Padding(
@@ -202,7 +203,7 @@ class _ContactViewState extends State<ContactView> {
                                       child: IconButton(
                                         icon: Icon(
                                           Icons.message_rounded,
-                                          color: Colors.green[600],
+                                          color: Colors.blue[600],
                                           size: 30,
                                         ),
                                         onPressed: () {
@@ -264,7 +265,7 @@ class _ContactViewState extends State<ContactView> {
                                       child: IconButton(
                                         icon: Icon(
                                           Icons.message_rounded,
-                                          color: Colors.green[600],
+                                          color: Colors.blue[600],
                                           size: 30,
                                         ),
                                         onPressed: () {
@@ -328,7 +329,7 @@ class _ContactViewState extends State<ContactView> {
                                         child: IconButton(
                                           icon: Icon(
                                             Icons.email_rounded,
-                                            color: Colors.green[600],
+                                            color: Colors.redAccent,
                                             size: 30,
                                           ),
                                           onPressed: () {
@@ -373,7 +374,7 @@ class _ContactViewState extends State<ContactView> {
                                         child: IconButton(
                                           icon: Icon(
                                             Icons.email_rounded,
-                                            color: Colors.green[600],
+                                            color: Colors.redAccent,
                                             size: 30,
                                           ),
                                           onPressed: () {
