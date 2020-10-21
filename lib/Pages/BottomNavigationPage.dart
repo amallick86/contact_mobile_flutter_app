@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:seva_mobileapp/Pages/InactiveContact.dart';
 import 'package:seva_mobileapp/services/authentication.dart';
 
 import 'ContactPage.dart';
@@ -49,12 +50,15 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
       return ContactPage();
     }
     if (index == 1) {
-      return GalleryPage();
+      return InactiveContact();
     }
     if (index == 2) {
-      return NotificationsPage();
+      return GalleryPage();
     }
     if (index == 3) {
+      return NotificationsPage();
+    }
+    if (index == 4) {
       return SettingPage(
           auth: widget.auth, userId: _userId, logoutCallback: logoutCallback);
     }
@@ -70,9 +74,14 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-              icon: Icon(Icons.home),
+              icon: Icon(Icons.people_alt_rounded),
               title: Text(
-                'Home',
+                'Active',
+              )),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.contactless_rounded),
+              title: Text(
+                'Inactive',
               )),
           BottomNavigationBarItem(
               icon: Icon(Icons.add_a_photo),

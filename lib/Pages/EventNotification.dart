@@ -61,10 +61,11 @@ class _EventNotificationState extends State<EventNotification> {
                         itemBuilder: (_, index) {
                           DateTime dateTime =
                               snapshot.data[index].data["eventDate"].toDate();
-                          String fdateonly = DateFormat.yMMMMd('en_US')
-                              .add_jm()
-                              .format(dateTime);
-                          if (dateTime.isAfter(DateTime.now())) {
+                          String nowdate =
+                              DateFormat.yMMMMd('en_US').format(DateTime.now());
+                          String fdateonly =
+                              DateFormat.yMMMMd('en_US').format(dateTime);
+                          if (nowdate == fdateonly) {
                             return Padding(
                               padding: EdgeInsets.only(
                                 left: 30.0,

@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'ContactDetails.dart';
+import 'package:responsive_flutter/responsive_flutter.dart';
+import 'package:seva_mobileapp/Pages/ContactView.dart';
 
 class BirthdayListPage extends StatefulWidget {
   BirthdayListPage({Key key}) : super(key: key);
@@ -37,7 +37,7 @@ class _BirthdayListPageState extends State<BirthdayListPage> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ContactDetails(
+            builder: (context) => ContactView(
                   post: post,
                 )));
   }
@@ -52,6 +52,7 @@ class _BirthdayListPageState extends State<BirthdayListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+          toolbarHeight: 50,
           flexibleSpace: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -82,12 +83,14 @@ class _BirthdayListPageState extends State<BirthdayListPage> {
                           onTap: () =>
                               navigateToContactDetail(snapshot.data[index]),
                           leading: CircleAvatar(
+                            backgroundColor: Colors.white,
                             backgroundImage: NetworkImage(_photo),
                           ),
-                          title: Text(
-                            snapshot.data[index].data["fullName"],
-                            style: GoogleFonts.crimsonText(fontSize: 22),
-                          ),
+                          title: Text(snapshot.data[index].data["fullName"],
+                              style: GoogleFonts.crimsonText(
+                                fontSize:
+                                    ResponsiveFlutter.of(context).fontSize(3),
+                              )),
                           subtitle: Text(
                             snapshot.data[index].data["DOB_D"].toString() +
                                 ' / ' +
@@ -95,7 +98,10 @@ class _BirthdayListPageState extends State<BirthdayListPage> {
                                 ' / ' +
                                 snapshot.data[index].data["DOB_Y"].toString(),
                             style: GoogleFonts.crimsonText(
-                                fontSize: 17, color: Colors.red[300]),
+                              fontSize:
+                                  ResponsiveFlutter.of(context).fontSize(2.3),
+                              color: Colors.red[600],
+                            ),
                           ),
                         );
                       });

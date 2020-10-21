@@ -17,6 +17,9 @@ class SelfProfile extends StatefulWidget {
 
 class _SelfProfileState extends State<SelfProfile> {
   String _userId;
+  void _onBackPressed() {
+    Navigator.of(context).pop();
+  }
 
   @override
   initState() {
@@ -27,17 +30,6 @@ class _SelfProfileState extends State<SelfProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Colors.blue[600], Colors.red[600]],
-                stops: [0.0, 1.0],
-              ),
-            ),
-          ),
-          title: Center(child: Text('PROFILE')),
-        ),
         backgroundColor: Colors.grey[200],
         body: Container(
           child: StreamBuilder(
@@ -55,478 +47,334 @@ class _SelfProfileState extends State<SelfProfile> {
                   );
                 }
                 var userDocument = snapshot.data;
-                return SafeArea(
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10),
+                return Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  child: SafeArea(
+                    child: Stack(
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.width * 1.1,
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                  colors: [Colors.green, Colors.blue]),
+                              image: DecorationImage(
+                                image: NetworkImage(userDocument["photoURL"]),
+                                fit: BoxFit.fill,
+                              )),
+                        ),
+                        Positioned(
+                          // --> App Bar
+                          child: AppBar(
+                            toolbarHeight: 50,
+                            backgroundColor: Colors.transparent,
+                            elevation: 0.0,
+                            leading: Padding(
+                              // --> Custom Back Button
+                              padding: const EdgeInsets.all(8.0),
+                              child: FloatingActionButton(
+                                backgroundColor: Colors.white,
+                                mini: true,
+                                onPressed: this._onBackPressed,
+                                child:
+                                    Icon(Icons.arrow_back, color: Colors.black),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SingleChildScrollView(
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.only(top: 300, bottom: 10),
                             child: Container(
-                              width: 130.0,
-                              height: 130.0,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(23.0),
-                                image: DecorationImage(
-                                  image: NetworkImage(userDocument["photoURL"]),
-                                  fit: BoxFit.cover,
-                                ),
-                                border: Border.all(
-                                    width: 2.0, color: const Color(0xffe4480f)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Color(0x29000000),
-                                    offset: Offset(15, 15),
-                                    blurRadius: 6,
+                              width: MediaQuery.of(context).size.width,
+                              child: Column(
+                                children: [
+                                  Card(
+                                    elevation: 20,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(25),
+                                            topRight: Radius.circular(25),
+                                            bottomLeft: Radius.circular(25),
+                                            bottomRight: Radius.circular(25))),
+                                    color: Colors.white,
+                                    child: Column(
+                                      children: [
+                                        ListTile(
+                                          title: Text(
+                                            userDocument["fullName"],
+                                            style: GoogleFonts.crimsonText(
+                                              fontSize:
+                                                  ResponsiveFlutter.of(context)
+                                                      .fontSize(3),
+                                            ),
+                                          ),
+                                          subtitle: Text(
+                                            userDocument["Post"],
+                                            style: GoogleFonts.crimsonText(
+                                              fontSize:
+                                                  ResponsiveFlutter.of(context)
+                                                      .fontSize(2.3),
+                                            ),
+                                          ),
+                                          leading: CircleAvatar(
+                                            backgroundColor: Colors.white,
+                                            backgroundImage: NetworkImage(
+                                              userDocument["photoURL"],
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.only(
+                                              left: 20, bottom: 10),
+                                          alignment: Alignment.centerLeft,
+                                          child: Row(
+                                            children: [
+                                              Icon(
+                                                Icons.cake_rounded,
+                                                size: 30,
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 20),
+                                                child: Text(
+                                                  userDocument["DOB_D"]
+                                                          .toString() +
+                                                      ' / ' +
+                                                      userDocument["DOB_M"]
+                                                          .toString() +
+                                                      ' / ' +
+                                                      userDocument["DOB_Y"]
+                                                          .toString(),
+                                                  style: GoogleFonts.robotoSlab(
+                                                    fontSize:
+                                                        ResponsiveFlutter.of(
+                                                                context)
+                                                            .fontSize(2.5),
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        Divider(
+                                          color: Colors.grey[400],
+                                          height: 0,
+                                          thickness: 1,
+                                          indent: 0,
+                                          endIndent: 0,
+                                        ),
+                                        Container(
+                                            padding: EdgeInsets.only(
+                                                left: 20, top: 10),
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              "Work Phone",
+                                              style: GoogleFonts.robotoSlab(
+                                                fontSize: ResponsiveFlutter.of(
+                                                        context)
+                                                    .fontSize(2.2),
+                                                color: Colors.grey[500],
+                                              ),
+                                            )),
+                                        Container(
+                                          padding:
+                                              EdgeInsets.only(left: 20, top: 0),
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            userDocument["WorkPhone"]
+                                                .toString(),
+                                            style: GoogleFonts.robotoSlab(
+                                              fontSize:
+                                                  ResponsiveFlutter.of(context)
+                                                      .fontSize(2.5),
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                            padding: EdgeInsets.only(
+                                                left: 20, top: 0),
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              "Personal Phone",
+                                              style: GoogleFonts.robotoSlab(
+                                                fontSize: ResponsiveFlutter.of(
+                                                        context)
+                                                    .fontSize(2.2),
+                                                color: Colors.grey[500],
+                                              ),
+                                            )),
+                                        Container(
+                                          padding: EdgeInsets.only(
+                                              left: 20, top: 0, bottom: 20),
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            userDocument["PersonalPhone"]
+                                                .toString(),
+                                            style: GoogleFonts.robotoSlab(
+                                              fontSize:
+                                                  ResponsiveFlutter.of(context)
+                                                      .fontSize(2.5),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 10),
+                                    child: Card(
+                                      elevation: 20,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(25),
+                                              topRight: Radius.circular(25),
+                                              bottomLeft: Radius.circular(25),
+                                              bottomRight:
+                                                  Radius.circular(25))),
+                                      color: Colors.white,
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                              padding: EdgeInsets.only(
+                                                  left: 20, top: 20),
+                                              alignment: Alignment.centerLeft,
+                                              child: Text(
+                                                "Work Email",
+                                                style: GoogleFonts.robotoSlab(
+                                                  fontSize:
+                                                      ResponsiveFlutter.of(
+                                                              context)
+                                                          .fontSize(2.2),
+                                                  color: Colors.grey[500],
+                                                ),
+                                              )),
+                                          Container(
+                                            padding: EdgeInsets.only(
+                                              left: 20,
+                                              top: 0,
+                                            ),
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              userDocument["email"],
+                                              style: GoogleFonts.robotoSlab(
+                                                fontSize: ResponsiveFlutter.of(
+                                                        context)
+                                                    .fontSize(2.1),
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                              padding: EdgeInsets.only(
+                                                  left: 20, top: 10),
+                                              alignment: Alignment.centerLeft,
+                                              child: Text(
+                                                "Personal Email",
+                                                style: GoogleFonts.robotoSlab(
+                                                  fontSize:
+                                                      ResponsiveFlutter.of(
+                                                              context)
+                                                          .fontSize(2.2),
+                                                  color: Colors.grey[500],
+                                                ),
+                                              )),
+                                          Container(
+                                            padding: EdgeInsets.only(
+                                                left: 20, top: 0, bottom: 20),
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              userDocument["personalemail"],
+                                              style: GoogleFonts.robotoSlab(
+                                                fontSize: ResponsiveFlutter.of(
+                                                        context)
+                                                    .fontSize(2.1),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 10),
+                                    child: Card(
+                                      elevation: 20,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(25),
+                                              topRight: Radius.circular(25),
+                                              bottomLeft: Radius.circular(25),
+                                              bottomRight:
+                                                  Radius.circular(25))),
+                                      color: Colors.white,
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                              padding: EdgeInsets.only(
+                                                  left: 20, top: 20),
+                                              alignment: Alignment.centerLeft,
+                                              child: Text(
+                                                "Temporary Address",
+                                                style: GoogleFonts.robotoSlab(
+                                                  fontSize:
+                                                      ResponsiveFlutter.of(
+                                                              context)
+                                                          .fontSize(2.2),
+                                                  color: Colors.grey[500],
+                                                ),
+                                              )),
+                                          Container(
+                                            padding: EdgeInsets.only(
+                                                left: 20, top: 0, bottom: 20),
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              userDocument["address"],
+                                              style: GoogleFonts.robotoSlab(
+                                                fontSize: ResponsiveFlutter.of(
+                                                        context)
+                                                    .fontSize(2.1),
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                              padding: EdgeInsets.only(
+                                                  left: 20, top: 0),
+                                              alignment: Alignment.centerLeft,
+                                              child: Text(
+                                                "Permanent Address",
+                                                style: GoogleFonts.robotoSlab(
+                                                  fontSize:
+                                                      ResponsiveFlutter.of(
+                                                              context)
+                                                          .fontSize(2.2),
+                                                  color: Colors.grey[500],
+                                                ),
+                                              )),
+                                          Container(
+                                            padding: EdgeInsets.only(
+                                                left: 20, top: 0, bottom: 20),
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              userDocument["Permanentaddress"],
+                                              style: GoogleFonts.robotoSlab(
+                                                fontSize: ResponsiveFlutter.of(
+                                                        context)
+                                                    .fontSize(2.1),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                   ),
                                 ],
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10),
-                            child: Text(
-                              userDocument["fullName"],
-                              style: GoogleFonts.crimsonText(
-                                fontSize:
-                                    ResponsiveFlutter.of(context).fontSize(5),
-                                fontWeight: FontWeight.w700,
-                              ),
-                              textAlign: TextAlign.left,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(),
-                            child: Text(
-                              userDocument["Post"],
-                              style: GoogleFonts.crimsonText(
-                                color: Colors.grey[700],
-                                fontSize:
-                                    ResponsiveFlutter.of(context).fontSize(4),
-                              ),
-                              textAlign: TextAlign.left,
-                            ),
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            padding:
-                                EdgeInsets.only(top: 50, left: 10, right: 10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 0),
-                                  child: Text(
-                                    'Phone Number Details:',
-                                    style: GoogleFonts.robotoSlab(
-                                      fontSize: ResponsiveFlutter.of(context)
-                                          .fontSize(2.2),
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                    textAlign: TextAlign.left,
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: <Widget>[
-                                    Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.50,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            width: 1.0,
-                                            color: const Color(0xffe4480f)),
-                                      ),
-                                    ),
-                                    Container(
-                                      width: ((MediaQuery.of(context)
-                                              .size
-                                              .width) -
-                                          (MediaQuery.of(context).size.width *
-                                              0.56)),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            width: 1.0,
-                                            color: const Color(0xffb9b6b6)),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          0, 10, 0, 0),
-                                      child: Text(
-                                        'Work Number:',
-                                        style: GoogleFonts.oxygen(
-                                          fontSize:
-                                              ResponsiveFlutter.of(context)
-                                                  .fontSize(2),
-                                          color: Colors.grey[700],
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                        textAlign: TextAlign.left,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          0, 10, 0, 0),
-                                      child: Text(
-                                        userDocument["WorkPhone"].toString(),
-                                        style: GoogleFonts.crimsonText(
-                                          fontSize:
-                                              ResponsiveFlutter.of(context)
-                                                  .fontSize(2.8),
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                        textAlign: TextAlign.left,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          0, 10, 0, 10),
-                                      child: Text(
-                                        'Personal Number:',
-                                        style: GoogleFonts.oxygen(
-                                          fontSize:
-                                              ResponsiveFlutter.of(context)
-                                                  .fontSize(2),
-                                          color: Colors.grey[700],
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                        textAlign: TextAlign.left,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          0, 10, 0, 0),
-                                      child: Text(
-                                        userDocument["PersonalPhone"]
-                                            .toString(),
-                                        style: GoogleFonts.crimsonText(
-                                          fontSize:
-                                              ResponsiveFlutter.of(context)
-                                                  .fontSize(2.8),
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                        textAlign: TextAlign.left,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                                  child: Text(
-                                    'Address Details:',
-                                    style: GoogleFonts.robotoSlab(
-                                      fontSize: ResponsiveFlutter.of(context)
-                                          .fontSize(2.2),
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                    textAlign: TextAlign.left,
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: <Widget>[
-                                    Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.31,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            width: 1.0,
-                                            color: const Color(0xffe4480f)),
-                                      ),
-                                    ),
-                                    Container(
-                                      width: ((MediaQuery.of(context)
-                                              .size
-                                              .width) -
-                                          (MediaQuery.of(context).size.width *
-                                              0.37)),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            width: 1.0,
-                                            color: const Color(0xffb9b6b6)),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Padding(
-                                      padding:
-                                          const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                                      child: Text(
-                                        'Temporary:',
-                                        style: GoogleFonts.oxygen(
-                                          fontSize:
-                                              ResponsiveFlutter.of(context)
-                                                  .fontSize(2),
-                                          color: Colors.grey[700],
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                        textAlign: TextAlign.left,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 10),
-                                      child: Text(
-                                        userDocument["address"],
-                                        style: GoogleFonts.crimsonText(
-                                          fontSize:
-                                              ResponsiveFlutter.of(context)
-                                                  .fontSize(2.3),
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                        textAlign: TextAlign.left,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Padding(
-                                      padding:
-                                          const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                                      child: Text(
-                                        'Permanent:',
-                                        style: GoogleFonts.oxygen(
-                                          fontSize:
-                                              ResponsiveFlutter.of(context)
-                                                  .fontSize(2),
-                                          color: Colors.grey[700],
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                        textAlign: TextAlign.left,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 10),
-                                      child: Text(
-                                        userDocument["Permanentaddress"],
-                                        style: GoogleFonts.crimsonText(
-                                          fontSize:
-                                              ResponsiveFlutter.of(context)
-                                                  .fontSize(2.3),
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                        textAlign: TextAlign.left,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                                  child: Text(
-                                    'Email:',
-                                    style: GoogleFonts.robotoSlab(
-                                      fontSize: ResponsiveFlutter.of(context)
-                                          .fontSize(2.2),
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                    textAlign: TextAlign.left,
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: <Widget>[
-                                    Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.12,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            width: 1.0,
-                                            color: const Color(0xffe4480f)),
-                                      ),
-                                    ),
-                                    Container(
-                                      width: ((MediaQuery.of(context)
-                                              .size
-                                              .width) -
-                                          (MediaQuery.of(context).size.width *
-                                              0.18)),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            width: 1.0,
-                                            color: const Color(0xffb9b6b6)),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          0, 10, 0, 0),
-                                      child: Text(
-                                        ' Work:',
-                                        style: GoogleFonts.oxygen(
-                                          fontSize:
-                                              ResponsiveFlutter.of(context)
-                                                  .fontSize(2),
-                                          color: Colors.grey[700],
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                        textAlign: TextAlign.left,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          0, 10, 10, 0),
-                                      child: Text(
-                                        userDocument["email"],
-                                        style: GoogleFonts.robotoSlab(
-                                          fontSize:
-                                              ResponsiveFlutter.of(context)
-                                                  .fontSize(2),
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                        textAlign: TextAlign.left,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          0, 10, 0, 10),
-                                      child: Text(
-                                        'Personal:',
-                                        style: GoogleFonts.oxygen(
-                                          fontSize:
-                                              ResponsiveFlutter.of(context)
-                                                  .fontSize(2),
-                                          color: Colors.grey[700],
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                        textAlign: TextAlign.left,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                        top: 10,
-                                        bottom: 10,
-                                        right: 10,
-                                      ),
-                                      child: Text(
-                                        userDocument["personalemail"],
-                                        style: GoogleFonts.robotoSlab(
-                                          fontSize:
-                                              ResponsiveFlutter.of(context)
-                                                  .fontSize(2),
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                        textAlign: TextAlign.left,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                                  child: Text(
-                                    'DOB Details:',
-                                    style: GoogleFonts.robotoSlab(
-                                      fontSize: ResponsiveFlutter.of(context)
-                                          .fontSize(2.2),
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                    textAlign: TextAlign.left,
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: <Widget>[
-                                    Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.24,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            width: 1.0,
-                                            color: const Color(0xffe4480f)),
-                                      ),
-                                    ),
-                                    Container(
-                                      width: ((MediaQuery.of(context)
-                                              .size
-                                              .width) -
-                                          (MediaQuery.of(context).size.width *
-                                              0.30)),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            width: 1.0,
-                                            color: const Color(0xffb9b6b6)),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          0, 10, 0, 10),
-                                      child: Text(
-                                        'Date of Birth:',
-                                        style: GoogleFonts.oxygen(
-                                          fontSize:
-                                              ResponsiveFlutter.of(context)
-                                                  .fontSize(2),
-                                          color: Colors.grey[700],
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                        textAlign: TextAlign.left,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          right: 10, top: 10, bottom: 0),
-                                      child: Text(
-                                        userDocument["DOB_D"].toString() +
-                                            ' / ' +
-                                            userDocument["DOB_M"].toString() +
-                                            ' / ' +
-                                            userDocument["DOB_Y"].toString(),
-                                        style: GoogleFonts.robotoSlab(
-                                          fontSize:
-                                              ResponsiveFlutter.of(context)
-                                                  .fontSize(2.3),
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                        textAlign: TextAlign.left,
-                                      ),
-                                    )
-                                  ],
-                                )
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 );

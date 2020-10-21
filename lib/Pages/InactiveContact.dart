@@ -5,9 +5,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:responsive_flutter/responsive_flutter.dart';
+import 'package:seva_mobileapp/Pages/ContactView.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import 'ContactDetails.dart';
 
 class User {
   final String name;
@@ -62,7 +62,7 @@ class _InactiveContactState extends State<InactiveContact> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ContactDetails(
+            builder: (context) => ContactView(
                   post: post,
                 )));
   }
@@ -180,17 +180,23 @@ class _InactiveContactState extends State<InactiveContact> {
                                     onTap: () => navigateToContactDetail(
                                         snapshot.data[index]),
                                     leading: CircleAvatar(
+                                      backgroundColor: Colors.white,
                                       backgroundImage: NetworkImage(_photo),
                                     ),
                                     title: Text(
-                                      snapshot.data[index].data["fullName"],
-                                      style:
-                                          GoogleFonts.crimsonText(fontSize: 22),
-                                    ),
+                                        snapshot.data[index].data["fullName"],
+                                        style: GoogleFonts.crimsonText(
+                                          fontSize:
+                                              ResponsiveFlutter.of(context)
+                                                  .fontSize(3),
+                                        )),
                                     subtitle: Text(
                                       snapshot.data[index].data["email"],
-                                      style:
-                                          GoogleFonts.crimsonText(fontSize: 16),
+                                      style: GoogleFonts.crimsonText(
+                                        fontSize: ResponsiveFlutter.of(context)
+                                            .fontSize(2.3),
+                                        fontWeight: FontWeight.w700,
+                                      ),
                                     ),
                                   ),
                                 ),

@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_flutter/responsive_flutter.dart';
+import 'package:seva_mobileapp/Pages/ContactView.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import 'ContactDetails.dart';
 
 class BirthdayNotification extends StatefulWidget {
   BirthdayNotification({Key key}) : super(key: key);
@@ -49,7 +48,7 @@ class _BirthdayNotificationState extends State<BirthdayNotification> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ContactDetails(
+            builder: (context) => ContactView(
                   post: post,
                 )));
   }
@@ -96,6 +95,7 @@ class _BirthdayNotificationState extends State<BirthdayNotification> {
                                   onTap: () => navigateToContactDetail(
                                       snapshot.data[index]),
                                   leading: CircleAvatar(
+                                    backgroundColor: Colors.white,
                                     backgroundImage: NetworkImage(_photo),
                                   ),
                                   title: Text(
